@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FLIEVIP ULTIMATE 24/7 - SYSTEM BY HUY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap');
+        :root { --neon: #00d2ff; --bg: #010409; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        .font-cyber { font-family: 'Orbitron', sans-serif; }
+        .glass { background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(0, 210, 255, 0.15); }
+        .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.4s; }
+        .popup.active { display: flex; opacity: 1; }
+        .sidebar { position: fixed; top: 0; left: -320px; width: 300px; height: 100%; background: #0d1117; z-index: 10001; transition: 0.5s cubic-bezier(0.8, 0, 0.2, 1); border-right: 2px solid var(--neon); }
+        .sidebar.active { left: 0; }
+        .nav-item { display: flex; align-items: center; gap: 15px; padding: 18px 25px; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; transition: 0.3s; }
+        .nav-item:active { background: rgba(0, 210, 255, 0.1); }
+        
+        .marquee-container { background: rgba(0, 210, 255, 0.05); border-bottom: 1px solid rgba(0, 210, 255, 0.1); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 25s linear infinite; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #00d2ff; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        #matrix { position: fixed; inset: 0; z-index: -1; opacity: 0.12; }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <div id="auth-gate" class="popup active">
+        <div class="glass w-[92%] max-w-[400px] p-10 rounded-[3rem] border-t-4 border-blue-500 shadow-2xl">
+            <h2 class="font-cyber text-3xl text-center mb-2 italic text-blue-400 font-black tracking-widest">FLIEVIP</h2>
+            <p class="text-[8px] text-center text-gray-500 mb-8 uppercase tracking-[5px]">Active 24/7 System</p>
+            <div class="space-y-5">
+                <input type="text" id="u-name" placeholder="Tên đăng nhập..." class="w-full bg-black/50 border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500 font-bold">
+                <input type="password" id="u-pass" placeholder="Mật khẩu..." class="w-full bg-black/50 border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500 font-bold">
+                <button onclick="loginSystem()" class="w-full bg-blue-600 py-5 rounded-2xl font-black text-xs tracking-widest shadow-lg shadow-blue-500/20">TRUY CẬP NGAY</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-sidebar" class="sidebar">
+        <div class="relative p-10 border-b border-white/5 text-center">
+            <button onclick="toggleSide()" class="absolute top-5 right-5 text-gray-500 hover:text-red-500 text-xl transition-all"><i class="fas fa-times-circle"></i></button>
+            <div class="w-20 h-20 bg-blue-600 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl font-black">F</div>
+            <p id="display-user" class="font-cyber text-blue-400 text-sm font-black italic uppercase">ANHHUYNE</p>
+            <p class="text-[8px] text-gray-500 font-black uppercase mt-1">Cấp độ: Member</p>
+        </div>
+        <div class="py-2">
+            <div onclick="openPop('pop-qr')" class="nav-item"><i class="fas fa-money-bill-wave text-yellow-500 w-5"></i> <span>Nạp Tiền QR</span></div>
+            <div onclick="alert('Đang nâng cấp!')" class="nav-item"><i class="fas fa-credit-card text-blue-400 w-5"></i> <span>Thẻ Cào</span></div>
+            <div id="admin-btn" onclick="openPop('pop-admin')" class="nav-item hidden text-red-500 font-black"><i class="fas fa-user-shield w-5"></i> <span>QUẢN TRỊ</span></div>
+            <div onclick="alert('Đang phát triển!')" class="nav-item"><i class="fas fa-user-circle text-green-400 w-5"></i> <span>Cá Nhân</span></div>
+            <div onclick="window.open('https://zalo.me/0397208110', '_blank')" class="nav-item"><i class="fas fa-headset text-pink-500 w-5"></i> <span>Hỗ Trợ (Huy)</span></div>
+            <div onclick="window.location.reload()" class="nav-item text-gray-400 border-t border-white/5 mt-4"><i class="fas fa-sign-out-alt w-5"></i> <span>Đăng Xuất</span></div>
+        </div>
+    </div>
+
+    <div id="app-ui" class="hidden h-screen flex flex-col">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                TOP 1: HUY MOD - 5.000.000đ ★ TOP 2: ADMIN FF - 2.500.000đ ★ TOP 3: GIA BAO - 1.200.000đ ★ TOP 4: TUAN ANH - 900.000đ ★ TOP 5: QUOC HUY - 850.000đ
+            </div>
+        </div>
+
+        <header class="p-5 flex items-center justify-between glass border-b border-blue-500/10">
+            <div onclick="toggleSide()" class="text-2xl text-blue-400 cursor-pointer"><i class="fas fa-bars-staggered"></i></div>
+            <h1 class="text-xl font-black font-cyber text-blue-400 italic">FLIEVIP</h1>
+            <div class="bg-blue-600/10 px-4 py-2 rounded-2xl border border-blue-500/20">
+                <p id="user-bal" class="text-sm font-black text-yellow-500 font-cyber">0đ</p>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-5 space-y-6 pb-28">
+            <div class="glass p-4 rounded-2xl border-l-4 border-blue-500 flex items-center gap-4">
+                <i class="fas fa-clock text-blue-400 animate-spin"></i>
+                <p class="text-[10px] font-bold text-gray-300 uppercase">Hệ thống mở cửa 24/7 - Sẵn sàng phục vụ</p>
+            </div>
+
+            <div class="flex bg-black/40 p-1.5 rounded-2xl border border-white/5">
+                <button onclick="setTab('free')" id="b-free" class="flex-1 py-3 text-[9px] font-black opacity-40">FREE</button>
+                <button onclick="setTab('adr')" id="b-adr" class="flex-1 py-3 text-[9px] font-black opacity-40">ANDROID</button>
+                <button onclick="setTab('ios')" id="b-ios" class="flex-1 py-3 text-[9px] font-black opacity-40">IOS VIP</button>
+            </div>
+            
+            <div id="file-box" class="space-y-4"></div>
+        </main>
+    </div>
+
+    <div id="pop-qr" class="popup">
+        <div class="glass w-[85%] max-w-[380px] p-8 rounded-[3rem] text-center relative">
+            <button onclick="closePop('pop-qr')" class="absolute top-6 right-6 text-gray-500"><i class="fas fa-times"></i></button>
+            <h3 class="font-cyber text-blue-400 mb-6 font-black italic">MB BANK - HUY</h3>
+            <img src="https://img.vietqr.io/image/MB-0397208110-compact2.jpg?amount=50000&addInfo=NAP%20TIEN%20HUY" class="w-full rounded-2xl mb-4 border-2 border-blue-500/20">
+            <p class="text-[10px] text-left bg-black/30 p-3 rounded-lg">Nội dung: <span class="text-blue-400 font-bold uppercase">NAP TIEN HUY</span></p>
+        </div>
+    </div>
+
+    <div id="pop-admin" class="popup">
+        <div class="glass w-[90%] p-8 rounded-[3rem]">
+            <h3 class="text-red-500 font-black italic font-cyber mb-4 text-center">GIFTCODE SYSTEM</h3>
+            <div id="code-list" class="h-64 overflow-y-auto bg-black p-4 rounded-2xl font-mono text-[9px] text-blue-400 space-y-2"></div>
+            <button onclick="closePop('pop-admin')" class="w-full bg-red-600 py-4 mt-6 rounded-2xl font-black text-xs uppercase shadow-lg shadow-red-500/20">Đóng Panel</button>
+        </div>
+    </div>
+
+    <div id="audio-bg"></div>
+
+    <script>
+        let balance = 0;
+        let tab = 'free';
+        const giftcodes = {};
+
+        // Tạo giftcode ảo cho Admin
+        [10, 20, 50, 100].forEach(v => {
+            for(let i=0; i<30; i++) {
+                let c = `FLIEVIP_${v}K_` + Math.random().toString(36).substring(6).toUpperCase();
+                giftcodes[c] = { val: v*1000, used: false };
+            }
+        });
+
+        function loginSystem() {
+            const u = document.getElementById('u-name').value;
+            const p = document.getElementById('u-pass').value;
+            if(!u || !p) return alert("Vui lòng nhập tài khoản!");
+            
+            // Kích hoạt nhạc Zombie V4 khi login
+            document.getElementById('audio-bg').innerHTML = `<iframe src="https://www.youtube.com/embed/FlU6ZEwUHz8?autoplay=1&loop=1&playlist=FlU6ZEwUHz8" width="0" height="0" frameborder="0"></iframe>`;
+            
+            document.getElementById('auth-gate').classList.remove('active');
+            document.getElementById('app-ui').classList.remove('hidden');
+            document.getElementById('display-user').innerText = u.toUpperCase();
+            
+            // Kiểm tra quyền Admin của Huy
+            if(u.toLowerCase()==='admin' && p==='Huy2026@') {
+                document.getElementById('admin-btn').classList.remove('hidden');
+            }
+            startApp();
+        }
+
+        function toggleSide() { document.getElementById('main-sidebar').classList.toggle('active'); }
+        function openPop(id) { document.getElementById(id).classList.add('active'); if(id!=='pop-admin') toggleSide(); }
+        function closePop(id) { document.getElementById(id).classList.remove('active'); }
+
+        function setTab(t) {
+            tab = t;
+            ['free', 'adr', 'ios'].forEach(i => {
+                const b = document.getElementById('b-'+i);
+                if(b) {
+                    b.style.opacity = (i===t)?"1":"0.4";
+                    b.style.color = (i===t)?"#00d2ff":"white";
+                    b.style.borderBottom = (i===t)?"2px solid #00d2ff":"none";
+                }
+            });
+            renderFiles();
+        }
+
+        function renderFiles() {
+            const box = document.getElementById('file-box');
+            box.innerHTML = "";
+            let data = [];
+            
+            // NGƯỜI MUA ẢO VÀ DỮ LIỆU FILE
+            if(tab === 'free') {
+                data = [
+                    {n: "FAKE LAG V8 - NETPLUS", p: 0, s: "852", sold: "5,402", user: "402"},
+                    {n: "FAKE LAG V10 - HOPPER", p: 0, s: "412", sold: "3,120", user: "152"},
+                    {n: "FAKE LAG V10 - ITACHIPING", p: 0, s: "620", sold: "2,840", user: "210"}
+                ];
+            } else {
+                let prefix = tab==='adr' ? 'ANDROID' : 'IOS';
+                let price = tab==='adr' ? 50000 : 100000;
+                data = Array.from({length:8}, (_, i) => ({
+                    n: `${prefix} VIP AIMBOT V${i+1}`, 
+                    p: price + (i*5000), 
+                    s: Math.floor(Math.random()*100) + 10, 
+                    sold: Math.floor(Math.random()*500) + 100, 
+                    user: Math.floor(Math.random()*50) + 5
+                }));
+            }
+
+            data.forEach(item => {
+                box.innerHTML += `
+                <div class="glass p-6 rounded-[2.5rem] space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-black uppercase italic tracking-wider">${item.n}</p>
+                            <p class="text-blue-400 font-cyber text-[11px]">${item.p===0?'MIỄN PHÍ':item.p.toLocaleString()+'đ'}</p>
+                        </div>
+                        <button onclick="buyFile(${item.p})" class="bg-blue-600 px-6 py-3 rounded-2xl text-[9px] font-black uppercase shadow-lg shadow-blue-500/20 active:scale-90 transition-all">Lấy File</button>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-white/5 pt-4">
+                        <div class="text-center">
+                            <p class="text-[7px] text-gray-500 uppercase font-bold">Còn hàng</p>
+                            <p class="text-[9px] text-green-500 font-black">${item.s}</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[7px] text-gray-500 uppercase font-bold">Đã bán</p>
+                            <p class="text-[9px] text-blue-400 font-black">${item.sold}</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[7px] text-gray-500 uppercase font-bold">Đang dùng</p>
+                            <p class="text-[9px] text-yellow-500 font-black">${item.user}</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[7px] text-gray-500 uppercase font-bold">Online</p>
+                            <p class="text-[9px] text-green-400 font-black animate-pulse">● LIVE</p>
+                        </div>
+                    </div>
+                </div>`;
+            });
+        }
+
+        function buyFile(p) {
+            if(balance >= p) {
+                balance -= p; updateBal(); 
+                alert("ĐANG LẤY LINK FILE VIP...");
+                window.open("https://link4m.com/AxI17", "_blank");
+            } else {
+                alert("SỐ DƯ KHÔNG ĐỦ! VUI LÒNG NẠP TIỀN."); openPop('pop-qr');
+            }
+        }
+
+        function updateBal() { document.getElementById('user-bal').innerText = balance.toLocaleString() + "đ"; }
+
+        function startApp() {
+            setTab('free'); updateBal();
+            document.getElementById('code-list').innerHTML = Object.keys(giftcodes).slice(0,50).map(k => `<div class="flex justify-between border-b border-white/5 pb-1"><span>${k}</span> <span>${giftcodes[k].val/1000}K</span></div>`).join('');
+        }
+
+        // MATRIX EFFECT
+        const canv = document.getElementById("matrix"), mctx = canv.getContext("2d");
+        canv.width = window.innerWidth; canv.height = window.innerHeight;
+        const drops = Array(Math.floor(canv.width/20)).fill(1);
+        setInterval(() => {
+            mctx.fillStyle = "rgba(1, 4, 9, 0.1)"; mctx.fillRect(0,0,canv.width,canv.height);
+            mctx.fillStyle = "#00d2ff"; mctx.font = "15px monospace";
+            drops.forEach((y, i) => {
+                mctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
+                if(y*20 > canv.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }, 50);
+    </script>
+</body>
+</html>
+ 
